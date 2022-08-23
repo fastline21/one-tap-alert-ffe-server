@@ -1,6 +1,7 @@
 const express = require('express');
 const cors = require('cors');
 const logger = require('morgan');
+const path = require('path');
 
 const routes = require('./services/routes');
 
@@ -10,6 +11,9 @@ app.use(cors());
 
 // Middleware
 app.use(express.json({ extended: true }));
+
+// Public assets
+app.use(express.static(path.join(__dirname, 'public')));
 
 // API Routes
 app.use('/api', routes);

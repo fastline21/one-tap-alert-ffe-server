@@ -38,7 +38,7 @@ const definition = {
 	},
 	emergency_status_id: {
 		type: Sequelize.INTEGER,
-		allowNull: false,
+		defaultValue: 1,
 	},
 	date_added: {
 		type: Sequelize.DATE,
