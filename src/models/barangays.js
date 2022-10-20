@@ -2,7 +2,7 @@ const Sequelize = require('sequelize');
 const db = require('../config/database');
 
 const options = {
-  tableName: 'users',
+  tableName: 'barangays',
   timestamps: true,
   paranoid: true,
   createdAt: 'date_added',
@@ -17,30 +17,11 @@ const definition = {
     primaryKey: true,
     allowNull: false,
   },
-  email_address: {
-    type: Sequelize.STRING,
-    allowNull: false,
-  },
-  username: {
-    type: Sequelize.STRING,
-    allowNull: false,
-  },
-  password: {
-    type: Sequelize.STRING,
-    allowNull: false,
-  },
-  user_type_id: {
-    type: Sequelize.INTEGER,
-    allowNull: false,
-  },
-  first_name: {
+  name: {
     type: Sequelize.STRING(100),
     allowNull: false,
   },
-  middle_initial: {
-    type: Sequelize.STRING(100),
-  },
-  last_name: {
+  tag: {
     type: Sequelize.STRING(100),
     allowNull: false,
   },
@@ -55,6 +36,6 @@ const definition = {
   },
 };
 
-const users = db.define('users', definition, options);
+const barangays = db.define('barangays', definition, options);
 
-module.exports = users;
+module.exports = barangays;

@@ -1,20 +1,24 @@
 const { Router } = require('express');
+const router = new Router();
 
 const routeFactory = require('../../factories/entityRouteFactory');
 const expressWrapper = require('../../utilities/expressWrapper');
 
-// Controllers
-const { getAllUsers } = require('./../../../controllers/usersController');
+const {
+  getAllUsers,
+  registerUser,
+} = require('./../../../controllers/usersController');
 
-const router = new Router();
+// router.get(
+//   '/',
+//   expressWrapper(() => getAllUsers())
+// );
 
-// Get all users
-router.get(
-	'/',
-	expressWrapper(() => getAllUsers())
+router.post(
+  '/register',
+  expressWrapper(({ body, files }) => registerUser({ body, files }))
 );
 
-// Entity Routes
 const entityRoutes = routeFactory('users');
 router.use('/', entityRoutes);
 
