@@ -129,13 +129,6 @@ const registerUser = async ({ body, files }) => {
     });
     captured_image_selfie.mv(capturedImageSelfie.uploadPath);
 
-    console.log(
-      'capturedImageFrontID.file.length',
-      capturedImageFrontID.file.length
-    );
-
-    console.log('capturedImageFrontID.file', capturedImageFrontID.file);
-
     const user = await userService.create({
       entry: {
         user_type_id: USER_TYPES.RESIDENT,
