@@ -44,6 +44,39 @@ const definition = {
     type: Sequelize.STRING(100),
     allowNull: false,
   },
+  zip_code: {
+    type: Sequelize.INTEGER,
+    allowNull: false,
+  },
+  address: {
+    type: Sequelize.STRING,
+    allowNull: false,
+  },
+  barangay_id: {
+    type: Sequelize.INTEGER,
+    allowNull: false,
+  },
+  contact_no: {
+    type: Sequelize.STRING,
+    allowNull: false,
+  },
+  city: {
+    type: Sequelize.STRING,
+    allowNull: false,
+  },
+  user_status_id: {
+    type: Sequelize.INTEGER,
+    allowNull: false,
+  },
+  captured_image_front_id: {
+    type: Sequelize.STRING,
+  },
+  captured_image_back_id: {
+    type: Sequelize.STRING,
+  },
+  captured_image_selfie: {
+    type: Sequelize.STRING,
+  },
   date_added: {
     type: Sequelize.DATE,
   },
