@@ -142,7 +142,7 @@ const registerUser = async ({ body, files }) => {
         username,
         password: newPassword,
         password_2: password2,
-        contact_no: contactNo,
+        contact_no: `+63${contactNo}`,
         city,
         user_status_id: USER_STATUSES.PENDING,
         captured_image_front_id: capturedImageFrontID.file,
@@ -156,7 +156,7 @@ const registerUser = async ({ body, files }) => {
         user_id: user.id,
         first_name: contactPerson.first_name,
         last_name: contactPerson.last_name,
-        contact_no: contactPerson.contact_no,
+        contact_no: `+63${contactPerson.contact_no}`,
         email_address: contactPerson.email_address,
       },
     });
