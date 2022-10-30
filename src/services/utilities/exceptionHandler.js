@@ -34,9 +34,19 @@ class NotFoundException extends Error {
   }
 }
 
+class UnauthorizedException extends Error {
+  constructor(message) {
+    super();
+    this.name = 'Unauthorized';
+    this.statusCode = 401;
+    this.message = message || 'Unauthorized';
+  }
+}
+
 module.exports = {
   NotImplementedException,
   BadRequestException,
   ForbiddenException,
   NotFoundException,
+  UnauthorizedException,
 };

@@ -8,6 +8,7 @@ const db = require('../config/initConnection');
 const {
   BadRequestException,
   NotImplementedException,
+  UnauthorizedException,
 } = require('../services/utilities/exceptionHandler');
 
 const { USER_STATUSES } = require('../constants/user-statuses');
@@ -28,9 +29,12 @@ const loginUser = async ({ body }) => {
         user_type_id: {
           [Op.or]: user_type_ids,
         },
-        user_status_id: USER_STATUSES.APPROVED,
       },
     });
+
+    if (user.user_status_id !== USER_STATUSES.APPROVED) {
+      throw new UnauthorizedException('You are not authorized to login');
+    }
 
     const isMatch = await bcrypt.compare(password, user.password);
 
@@ -51,7 +55,7 @@ const loginUser = async ({ body }) => {
     };
   } catch (error) {
     console.error(error);
-    throw new NotImplementedException(error.message);
+    throw error;
   }
 };
 
