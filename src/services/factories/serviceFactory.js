@@ -8,9 +8,9 @@ module.exports = class serviceFactory {
   async fetch({ where, attributes, include, order, raw }) {
     const sequelize = await db();
 
-    if (!attributes) {
-      attributes = { exclude: ['date_added', 'date_modified', 'date_deleted'] };
-    }
+    // if (!attributes) {
+    //   attributes = { exclude: ['date_added', 'date_modified', 'date_deleted'] };
+    // }
 
     const result = await sequelize.models[this.model].findOne({
       where,
@@ -30,9 +30,9 @@ module.exports = class serviceFactory {
   async fetchAll({ where, attributes, include, order, limit, raw }) {
     const sequelize = await db();
 
-    if (!attributes) {
-      attributes = { exclude: ['date_added', 'date_modified', 'date_deleted'] };
-    }
+    // if (!attributes) {
+    //   attributes = { exclude: ['date_added', 'date_modified', 'date_deleted'] };
+    // }
 
     return await sequelize.models[this.model].findAll({
       where,

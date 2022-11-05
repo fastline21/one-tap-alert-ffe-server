@@ -2,7 +2,7 @@ const Sequelize = require('sequelize');
 const db = require('../config/database');
 
 const options = {
-  tableName: 'emergencies',
+  tableName: 'user_statuses',
   timestamps: true,
   paranoid: true,
   createdAt: 'date_added',
@@ -17,31 +17,12 @@ const definition = {
     primaryKey: true,
     allowNull: false,
   },
-  user_id: {
-    type: Sequelize.INTEGER,
+  name: {
+    type: Sequelize.STRING,
     allowNull: false,
   },
-  emergency_type_id: {
-    type: Sequelize.INTEGER,
-    allowNull: false,
-  },
-  longitude: {
-    type: Sequelize.STRING(100),
-    allowNull: false,
-  },
-  latitude: {
-    type: Sequelize.STRING(100),
-    allowNull: false,
-  },
-  cause: {
+  description: {
     type: Sequelize.TEXT,
-  },
-  emergency_status_id: {
-    type: Sequelize.INTEGER,
-    defaultValue: 1,
-  },
-  responder_id: {
-    type: Sequelize.INTEGER,
   },
   date_added: {
     type: Sequelize.DATE,
@@ -54,6 +35,6 @@ const definition = {
   },
 };
 
-const emergencies = db.define('emergencies', definition, options);
+const user_statuses = db.define('user_statuses', definition, options);
 
-module.exports = emergencies;
+module.exports = user_statuses;

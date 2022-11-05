@@ -15,7 +15,7 @@ app.use(express.json({ extended: true }));
 
 app.use(fileUpload());
 
-app.use(express.static(path.join(__dirname, '..', 'upload')));
+app.use('/public', express.static(path.join(__dirname, '..', 'upload')));
 
 app.use('/api', routes);
 

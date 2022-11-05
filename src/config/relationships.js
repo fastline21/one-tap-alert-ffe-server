@@ -35,4 +35,14 @@ module.exports = (sequelize) => {
     foreignKey: 'id',
     sourceKey: 'barangay_id',
   });
+
+  models.users.hasOne(models.contact_persons, {
+    foreignKey: 'user_id',
+    sourceKey: 'id',
+  });
+
+  models.users.hasOne(models.user_statuses, {
+    foreignKey: 'id',
+    sourceKey: 'user_status_id',
+  });
 };

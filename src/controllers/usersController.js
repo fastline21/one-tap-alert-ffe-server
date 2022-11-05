@@ -27,27 +27,36 @@ const capturedImageFileName = ({ uploadPathDir, name }) => {
   };
 };
 
-const getAllUsers = async () => {
+const getUser = async ({ userID }) => {
   const sequelize = await db();
   const userService = new serviceFactory('users');
 
-  return await userService.fetchAll({
-    attributes: {
-      exclude: [
-        'password',
-        'user_type_id',
-        'date_added',
-        'date_modified',
-        'date_deleted',
-      ],
-    },
-    include: [
-      {
-        model: sequelize.models.user_types,
-        attributes: ['name'],
+  try {
+    const user = await userService.fetch({
+      where: {
+        id: userID,
       },
-    ],
-  });
+      include: [
+        {
+          model: sequelize.models.user_types,
+        },
+        {
+          model: sequelize.models.user_statuses,
+        },
+        {
+          model: sequelize.models.barangays,
+        },
+        {
+          model: sequelize.models.contact_persons,
+        },
+      ],
+    });
+
+    return { user };
+  } catch (error) {
+    console.error(error);
+    throw error.statusCode ? error : new NotImplementedException(error.message);
+  }
 };
 
 const registerUser = async ({ body, files }) => {
@@ -168,7 +177,73 @@ const registerUser = async ({ body, files }) => {
   }
 };
 
+const getAllUsersByUserTypeID = async ({ userTypeID }) => {
+  const sequelize = await db();
+  const userService = new serviceFactory('users');
+
+  try {
+    const users = await userService.fetchAll({
+      where: {
+        user_type_id: userTypeID,
+        user_status_id: USER_STATUSES.APPROVED,
+      },
+      include: [
+        {
+          model: sequelize.models.user_types,
+        },
+        {
+          model: sequelize.models.user_statuses,
+        },
+        {
+          model: sequelize.models.barangays,
+        },
+        {
+          model: sequelize.models.contact_persons,
+        },
+      ],
+    });
+    return { users };
+  } catch (error) {
+    console.error(error);
+    throw error.statusCode ? error : new NotImplementedException(error.message);
+  }
+};
+
+const getAllUsersByUserStatusID = async ({ userStatusID }) => {
+  const sequelize = await db();
+  const userService = new serviceFactory('users');
+
+  try {
+    const users = await userService.fetchAll({
+      where: {
+        user_status_id: userStatusID,
+      },
+      include: [
+        {
+          model: sequelize.models.user_types,
+        },
+        {
+          model: sequelize.models.user_statuses,
+        },
+        {
+          model: sequelize.models.barangays,
+        },
+        {
+          model: sequelize.models.contact_persons,
+        },
+      ],
+    });
+
+    return { users };
+  } catch (error) {
+    console.error(error);
+    throw error.statusCode ? error : new NotImplementedException(error.message);
+  }
+};
+
 module.exports = {
-  getAllUsers,
+  getUser,
   registerUser,
+  getAllUsersByUserTypeID,
+  getAllUsersByUserStatusID,
 };

@@ -5,14 +5,30 @@ const routeFactory = require('../../factories/entityRouteFactory');
 const expressWrapper = require('../../utilities/expressWrapper');
 
 const {
-  getAllUsers,
+  getUser,
   registerUser,
+  getAllUsersByUserTypeID,
+  getAllUsersByUserStatusID,
 } = require('./../../../controllers/usersController');
 
-// router.get(
-//   '/',
-//   expressWrapper(() => getAllUsers())
-// );
+router.get(
+  '/:id',
+  expressWrapper(({ params }) => getUser({ userID: params.id }))
+);
+
+router.get(
+  '/type/:user_type_id',
+  expressWrapper(({ params }) =>
+    getAllUsersByUserTypeID({ userTypeID: params.user_type_id })
+  )
+);
+
+router.get(
+  '/status/:user_status_id',
+  expressWrapper(({ params }) =>
+    getAllUsersByUserStatusID({ userStatusID: params.user_status_id })
+  )
+);
 
 router.post(
   '/register',

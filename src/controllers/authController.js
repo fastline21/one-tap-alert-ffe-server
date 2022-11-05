@@ -16,6 +16,8 @@ const { USER_STATUSES } = require('../constants/user-statuses');
 const loginUser = async ({ body }) => {
   const userService = new serviceFactory('users');
 
+  console.log('body', body);
+
   const { username, password, user_type_ids } = body;
 
   if (!username || !password) {
@@ -55,7 +57,8 @@ const loginUser = async ({ body }) => {
     };
   } catch (error) {
     console.error(error);
-    throw error;
+    throw error.statusCode ? error : new NotImplementedException(error.message);
+    // throw new NotImplementedException(error.message);
   }
 };
 
@@ -75,6 +78,9 @@ const authUser = async ({ userID }) => {
         },
         {
           model: sequelize.models.barangays,
+        },
+        {
+          model: sequelize.models.contact_persons,
         },
       ],
     });
