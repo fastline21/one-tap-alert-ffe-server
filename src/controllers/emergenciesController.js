@@ -34,6 +34,34 @@ const getAllEmergenciesByStatus = async ({ status }) => {
   }
 };
 
+const getAllEmergenciesByUserIDAndStatus = async ({ userID, status }) => {
+  const emergencyService = new serviceFactory('emergencies');
+  const sequelize = await db();
+  try {
+    const emergencies = await emergencyService.fetchAll({
+      where: {
+        responder_id: userID,
+        emergency_status_id: EMERGENCY_STATUSES[status.toUpperCase()],
+      },
+      include: [
+        {
+          model: sequelize.models.users,
+        },
+        {
+          model: sequelize.models.emergency_types,
+        },
+        {
+          model: sequelize.models.emergency_statuses,
+        },
+      ],
+    });
+    return emergencies;
+  } catch (error) {
+    console.error(error);
+    throw new NotImplementedException(error.message);
+  }
+};
+
 const getEmergency = async ({ emergencyID }) => {
   const emergencyService = new serviceFactory('emergencies');
   const sequelize = await db();
@@ -69,4 +97,8 @@ const getEmergency = async ({ emergencyID }) => {
   }
 };
 
-module.exports = { getAllEmergenciesByStatus, getEmergency };
+module.exports = {
+  getAllEmergenciesByStatus,
+  getEmergency,
+  getAllEmergenciesByUserIDAndStatus,
+};
