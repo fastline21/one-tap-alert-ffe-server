@@ -24,11 +24,11 @@ router.get(
 );
 
 router.get(
-  '/:user_id/status/:status',
+  '/:user_id/status/:emergency_status_id',
   expressWrapper(({ params }) =>
     getAllEmergenciesByUserIDAndStatus({
       userID: params.user_id,
-      status: params.status,
+      emergencyStatusID: params.emergency_status_id,
     })
   )
 );

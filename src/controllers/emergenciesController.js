@@ -34,14 +34,17 @@ const getAllEmergenciesByStatus = async ({ status }) => {
   }
 };
 
-const getAllEmergenciesByUserIDAndStatus = async ({ userID, status }) => {
+const getAllEmergenciesByUserIDAndStatus = async ({
+  userID,
+  emergencyStatusID,
+}) => {
   const emergencyService = new serviceFactory('emergencies');
   const sequelize = await db();
   try {
     const emergencies = await emergencyService.fetchAll({
       where: {
         responder_id: userID,
-        emergency_status_id: EMERGENCY_STATUSES[status.toUpperCase()],
+        emergency_status_id: emergencyStatusID,
       },
       include: [
         {
