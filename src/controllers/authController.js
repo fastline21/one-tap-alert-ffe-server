@@ -16,8 +16,6 @@ const { USER_STATUSES } = require('../constants/user-statuses');
 const loginUser = async ({ body }) => {
   const userService = new serviceFactory('users');
 
-  console.log('body', body);
-
   const { username, password, user_type_ids } = body;
 
   if (!username || !password) {
@@ -28,11 +26,12 @@ const loginUser = async ({ body }) => {
     const user = await userService.fetch({
       where: {
         username,
-        user_type_id: {
-          [Op.or]: user_type_ids,
-        },
       },
     });
+
+    if (!user_type_ids.includes(user.user_type_id)) {
+      throw new UnauthorizedException('You are not authorized to login');
+    }
 
     if (user.user_status_id !== USER_STATUSES.APPROVED) {
       throw new UnauthorizedException('You are not authorized to login');
