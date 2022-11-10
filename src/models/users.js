@@ -57,11 +57,11 @@ const definition = {
     allowNull: false,
   },
   contact_no: {
-    type: Sequelize.STRING,
+    type: Sequelize.STRING(13),
     allowNull: false,
   },
   city: {
-    type: Sequelize.STRING,
+    type: Sequelize.STRING(50),
     allowNull: false,
   },
   user_status_id: {
@@ -69,13 +69,13 @@ const definition = {
     allowNull: false,
   },
   captured_image_front_id: {
-    type: Sequelize.STRING,
+    type: Sequelize.STRING(100),
   },
   captured_image_back_id: {
-    type: Sequelize.STRING,
+    type: Sequelize.STRING(100),
   },
   captured_image_selfie: {
-    type: Sequelize.STRING,
+    type: Sequelize.STRING(100),
   },
   date_added: {
     type: Sequelize.DATE,
