@@ -14,6 +14,13 @@ module.exports = (sequelize) => {
   models.emergencies.hasOne(models.users, {
     foreignKey: 'id',
     sourceKey: 'user_id',
+    as: 'user',
+  });
+
+  models.emergencies.hasOne(models.users, {
+    foreignKey: 'id',
+    sourceKey: 'responder_id',
+    as: 'responder',
   });
 
   models.emergencies.hasOne(models.emergency_types, {

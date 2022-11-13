@@ -123,6 +123,22 @@ const getAllCurrentEmergencies = async ({ body }) => {
       },
       include: [
         {
+          as: 'user',
+          model: sequelize.models.users,
+          include: [
+            {
+              model: sequelize.models.user_types,
+            },
+            {
+              model: sequelize.models.barangays,
+            },
+            {
+              model: sequelize.models.contact_persons,
+            },
+          ],
+        },
+        {
+          as: 'responder',
           model: sequelize.models.users,
           include: [
             {
@@ -146,7 +162,7 @@ const getAllCurrentEmergencies = async ({ body }) => {
     });
     return emergencies;
   } catch (error) {
-    console.error(error);
+    console.error('Error: ', JSON.stringify(error) || error);
     throw error.statusCode ? error : new NotImplementedException(error.message);
   }
 };
