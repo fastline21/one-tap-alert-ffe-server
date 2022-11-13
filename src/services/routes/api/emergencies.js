@@ -9,6 +9,7 @@ const {
   getAllEmergenciesByStatus,
   getEmergency,
   getAllEmergenciesByUserIDAndStatus,
+  getAllCurrentEmergencies,
 } = require('../../../controllers/emergenciesController');
 
 router.get(
@@ -31,6 +32,11 @@ router.get(
       emergencyStatusID: params.emergency_status_id,
     })
   )
+);
+
+router.post(
+  '/current-emergencies',
+  expressWrapper(({ body }) => getAllCurrentEmergencies({ body }))
 );
 
 const entityRoutes = routeFactory('emergencies');
