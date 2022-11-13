@@ -124,6 +124,17 @@ const getAllCurrentEmergencies = async ({ body }) => {
       include: [
         {
           model: sequelize.models.users,
+          include: [
+            {
+              model: sequelize.models.user_types,
+            },
+            {
+              model: sequelize.models.barangays,
+            },
+            {
+              model: sequelize.models.contact_persons,
+            },
+          ],
         },
         {
           model: sequelize.models.emergency_types,
