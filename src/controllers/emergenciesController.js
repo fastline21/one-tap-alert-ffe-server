@@ -105,7 +105,7 @@ const getEmergency = async ({ emergencyID }) => {
 };
 
 const getAllCurrentEmergencies = async ({ body }) => {
-  const { status, type } = body;
+  const { status_ids, type_id } = body;
   const startDate = moment().startOf('year').toISOString();
   const endDate = moment().endOf('year').toISOString();
 
@@ -115,8 +115,8 @@ const getAllCurrentEmergencies = async ({ body }) => {
   try {
     const emergencies = await emergencyService.fetchAll({
       where: {
-        emergency_status_id: EMERGENCY_STATUSES[status.toUpperCase()],
-        emergency_type_id: EMERGENCY_TYPES[type.toUpperCase()],
+        emergency_status_id: [status_ids],
+        emergency_type_id: type_id,
         date_added: {
           [Op.between]: [startDate, endDate],
         },
