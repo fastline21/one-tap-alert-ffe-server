@@ -21,7 +21,34 @@ const getAllEmergenciesByStatus = async ({ status }) => {
       },
       include: [
         {
+          as: 'user',
           model: sequelize.models.users,
+          include: [
+            {
+              model: sequelize.models.user_types,
+            },
+            {
+              model: sequelize.models.barangays,
+            },
+            {
+              model: sequelize.models.contact_persons,
+            },
+          ],
+        },
+        {
+          as: 'responder',
+          model: sequelize.models.users,
+          include: [
+            {
+              model: sequelize.models.user_types,
+            },
+            {
+              model: sequelize.models.barangays,
+            },
+            {
+              model: sequelize.models.contact_persons,
+            },
+          ],
         },
         {
           model: sequelize.models.emergency_types,
@@ -79,10 +106,32 @@ const getEmergency = async ({ emergencyID }) => {
       },
       include: [
         {
+          as: 'user',
           model: sequelize.models.users,
           include: [
             {
+              model: sequelize.models.user_types,
+            },
+            {
               model: sequelize.models.barangays,
+            },
+            {
+              model: sequelize.models.contact_persons,
+            },
+          ],
+        },
+        {
+          as: 'responder',
+          model: sequelize.models.users,
+          include: [
+            {
+              model: sequelize.models.user_types,
+            },
+            {
+              model: sequelize.models.barangays,
+            },
+            {
+              model: sequelize.models.contact_persons,
             },
           ],
         },
@@ -91,9 +140,6 @@ const getEmergency = async ({ emergencyID }) => {
         },
         {
           model: sequelize.models.emergency_statuses,
-        },
-        {
-          model: sequelize.models.emergency_proofs,
         },
       ],
     });
