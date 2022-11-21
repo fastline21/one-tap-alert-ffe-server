@@ -99,6 +99,7 @@ const getAllEmergenciesByUserIDAndStatus = async ({
 const getEmergency = async ({ emergencyID }) => {
   const emergencyService = new serviceFactory('emergencies');
   const sequelize = await db();
+
   try {
     const emergency = await emergencyService.fetch({
       where: {
@@ -140,6 +141,9 @@ const getEmergency = async ({ emergencyID }) => {
         },
         {
           model: sequelize.models.emergency_statuses,
+        },
+        {
+          model: sequelize.models.emergency_proofs,
         },
       ],
     });
