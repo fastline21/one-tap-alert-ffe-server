@@ -163,14 +163,19 @@ const getAllCurrentEmergencies = async ({ body }) => {
   const sequelize = await db();
 
   try {
-    const emergencies = await emergencyService.fetchAll({
-      where: {
-        emergency_status_id: [status_ids],
-        emergency_type_id: type_id,
-        date_added: {
-          [Op.between]: [startDate, endDate],
-        },
+    const where = {
+      emergency_status_id: [status_ids],
+      date_added: {
+        [Op.between]: [startDate, endDate],
       },
+    };
+
+    if (type_id) {
+      where.emergency_type_id = type_id;
+    }
+
+    const emergencies = await emergencyService.fetchAll({
+      where,
       include: [
         {
           as: 'user',
